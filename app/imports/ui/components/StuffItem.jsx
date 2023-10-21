@@ -1,6 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
+import { Trash } from 'react-bootstrap-icons';
+import { Button } from 'react-bootstrap';
+import { Stuffs } from '../../api/stuff/Stuff';
+
+const deleteListItem = (id) => {
+  Stuffs.collection.remove(id);
+};
 
 /** Renders a single row in the List Stuff table. See pages/ListStuff.jsx. */
 const StuffItem = ({ stuff }) => (
@@ -10,6 +17,11 @@ const StuffItem = ({ stuff }) => (
     <td>{stuff.condition}</td>
     <td>
       <Link to={`/edit/${stuff._id}`}>Edit</Link>
+    </td>
+    <td>
+      <Button variant="danger" onClick={() => deleteListItem(stuff._id)}>
+        <Trash />
+      </Button>
     </td>
   </tr>
 );
